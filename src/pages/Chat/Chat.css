@@ -1,0 +1,17 @@
+.chat {
+  min-height: 100vh;
+  background: linear-gradient(#596aff, #383699);
+  display: grid; /*Tạo ra dạng lưới*/
+  place-items: center;
+}
+
+.chat-container {
+  width: 95%; /*giữ cho kích thước thay đổi linh hoạt tùy theo việc phóng to và thu nhỏ thì container vẫn có giá trị 95% của parent*/
+  max-width: 1000px; /*đối với trường hợp parent có kích thước lớn hơn 1000px thì max-width cũng chỉ dừng lại ở 1000px*/
+  /*việc kết hợp cả 2 giúp co giãn theo màn hình và giới hạn kích thước tối đa để tránh container quá lớn*/
+  height: 75vh;
+  background-color: aliceblue;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  /*fr: fraction (phần) tức là chat-container chia thành 3 cột với tỉ lệ được chia đều 1-2-1 tùy vào width*/
+}
