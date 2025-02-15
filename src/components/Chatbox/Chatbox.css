@@ -33,10 +33,6 @@
   gap: 5px;
 }
 
-img.dot {
-  width: 15px !important;
-}
-
 .chat-input {
   display: flex;
   align-items: center;
