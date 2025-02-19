@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./ProfileUpdate.css";
 import assets from "../../assets/assets";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../../config/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { AppContext } from "../../context/AppContext";
 
 const ProfileUpdate = () => {
   const navigate = useNavigate();
@@ -13,6 +15,7 @@ const ProfileUpdate = () => {
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
   const [prevImage, setPrevImage] = useState("");
+  const { setUserData } = useContext(AppContext);
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
@@ -38,10 +41,31 @@ const ProfileUpdate = () => {
     });
   });
 
+  const profileUpdate = async (event) => {
+    event.preventDefault();
+
+    try {
+      const docRef = doc(db, "users", uid);
+      await updateDoc(docRef, {
+        bio: bio,
+        name: name,
+      });
+
+      toast.success("Update successfully");
+
+      const snap = await getDoc(docRef);
+      setUserData(snap.data());
+      navigate("/chat");
+    } catch (error) {
+      console.log(error);
+      toast.error("Update failed");
+    }
+  };
+
   return (
     <div className="profile">
       <div className="profile-container">
-        <form>
+        <form onSubmit={profileUpdate}>
           <h3>Profile</h3>
           <label htmlFor="avatar">
             <input

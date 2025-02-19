@@ -16,7 +16,7 @@ const AppContextProvider = (props) => {
       const userSnap = await getDoc(userRef); //Gửi yêu cầu đến Firestore để lấy dữ liệu của user với uid đã cho.
       const userData = userSnap.data(); //Trích xuất dữ liệu thực tế từ tài liệu trong Firestore.
       setUserData(userData);
-      if (userData.avatar && userData.name) {
+      if (userData.name) {
         navigate("/chat");
       } else {
         navigate("/profile");
